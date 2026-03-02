@@ -11,7 +11,7 @@ export default function AdminPage() {
   const [authed, setAuthed] = useState(false);
 
   const [phone, setPhone] = useState("");
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(null); // { name, phone, points }
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +27,7 @@ export default function AdminPage() {
       setMessage("Enter staff PIN.");
       return;
     }
-    // We don’t validate pin on the client (not secure). We just store it.
+    // We don’t validate pin on the client (secure validation is on the server in /api/redeem)
     sessionStorage.setItem("admin_pin", pin.trim());
     sessionStorage.setItem("admin_authed", "1");
     setAuthed(true);
@@ -102,12 +102,24 @@ export default function AdminPage() {
     }
   }
 
+  // PIN screen
   if (!authed) {
     return (
       <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
         <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl">
-          <h1 className="text-2xl font-semibold">Staff Admin</h1>
-          <p className="mt-2 text-sm text-white/70">Enter the staff PIN to continue.</p>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-semibold">Staff Admin</h1>
+              <p className="mt-2 text-sm text-white/70">Enter the staff PIN to continue.</p>
+            </div>
+
+            <a
+              href="/"
+              className="shrink-0 rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+            >
+              Home
+            </a>
+          </div>
 
           <form onSubmit={handleLogin} className="mt-6 space-y-3">
             <input
@@ -131,6 +143,7 @@ export default function AdminPage() {
     );
   }
 
+  // Admin dashboard
   return (
     <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
       <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl">
@@ -141,12 +154,21 @@ export default function AdminPage() {
               Enter customer phone to view points and redeem 10% (costs 10 points).
             </p>
           </div>
-          <button
-            onClick={logout}
-            className="rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
-          >
-            Logout
-          </button>
+
+          <div className="flex gap-2">
+            <a
+              href="/"
+              className="rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+            >
+              Home
+            </a>
+            <button
+              onClick={logout}
+              className="rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         <form onSubmit={lookup} className="mt-6 flex gap-2">

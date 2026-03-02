@@ -15,10 +15,9 @@ export default function AdminPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Keep login on refresh (optional)
+  // Always require PIN on page load (don't restore session)
   useEffect(() => {
-    const saved = sessionStorage.getItem("admin_authed");
-    if (saved === "1") setAuthed(true);
+    // PIN is required every time, no session persistence
   }, []);
 
   function handleLogin(e) {

@@ -47,8 +47,11 @@ export default function CheckinPage() {
       setMessage(data.message);
       setNeedsName(false);
       setName("");
-      // optional: clear phone after success
-      // setPhone("");
+      // Auto-reset after 5 seconds for next client
+      setTimeout(() => {
+        setPhone("");
+        setMessage("");
+      }, 7000);
     } catch (err) {
       setMessage("Network error. Please try again.");
     } finally {

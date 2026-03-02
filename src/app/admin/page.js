@@ -106,7 +106,7 @@ export default function AdminPage() {
   if (!authed) {
     return (
       <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
-        <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl">
+        <div className="w-full max-w-md rounded-2xl border-2 border border-white/60 bg-white/5 p-6 shadow-xl">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="text-2xl font-semibold">Staff Admin</h1>
@@ -115,7 +115,7 @@ export default function AdminPage() {
 
             <a
               href="/"
-              className="shrink-0 rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+              className="shrink-0 rounded-xl border-2 border border-white/60 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
             >
               Home
             </a>
@@ -128,14 +128,14 @@ export default function AdminPage() {
               placeholder="Staff PIN"
               type="password"
               inputMode="numeric"
-              className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-lg outline-none focus:border-white/40"
+              className="w-full rounded-xl bg-black/40 border-2 border border-white/60 px-4 py-3 text-lg outline-none focus:border-white/40"
             />
             <button className="w-full rounded-xl bg-white text-black font-semibold py-3 text-lg hover:bg-white/90">
               Unlock Admin
             </button>
           </form>
 
-          <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3 text-sm text-white/80 min-h-[44px]">
+          <div className="mt-4 rounded-xl border-2 border border-white/60 bg-black/30 p-3 text-sm text-white/80 min-h-[44px]">
             {message || " "}
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function AdminPage() {
   // Admin dashboard
   return (
     <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
-      <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl">
+      <div className="w-full max-w-xl rounded-2xl border-2 border border-white/60 bg-white/5 p-6 shadow-xl">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold">Admin — Points Lookup</h1>
@@ -158,13 +158,13 @@ export default function AdminPage() {
           <div className="flex gap-2">
             <a
               href="/"
-              className="rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+              className="rounded-xl border-2 border border-white/60 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
             >
               Home
             </a>
             <button
               onClick={logout}
-              className="rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+              className="rounded-xl border-2 border border-white/60 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
             >
               Logout
             </button>
@@ -176,7 +176,7 @@ export default function AdminPage() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="Customer phone"
-            className="flex-1 rounded-xl bg-black/40 border border-white/15 px-4 py-3 outline-none focus:border-white/40"
+            className="flex-1 rounded-xl bg-black/40 border-2 border border-white/60 px-4 py-3 outline-none focus:border-white/40"
           />
           <button
             disabled={loading}
@@ -187,7 +187,7 @@ export default function AdminPage() {
         </form>
 
         {result && (
-          <div className="mt-6 rounded-xl border border-white/10 bg-black/30 p-4">
+          <div className="mt-6 rounded-xl border-2 border border-white/60 bg-black/30 p-4">
             <div className="text-lg font-semibold">{result.name}</div>
             <div className="text-sm text-white/70">Phone: {result.phone}</div>
             <div className="mt-3 text-xl">
@@ -204,7 +204,7 @@ export default function AdminPage() {
           </div>
         )}
 
-        <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3 text-sm text-white/80 min-h-[44px]">
+        <div className="mt-4 rounded-xl border-2 border border-white/60 bg-black/30 p-3 text-sm text-white/80 min-h-[44px]">
           {message || " "}
         </div>
       </div>

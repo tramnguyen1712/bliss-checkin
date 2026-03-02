@@ -3,14 +3,14 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-3xl rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl">
+      <div className="w-full max-w-5xl rounded-2xl border-2 border border-white/60 bg-white/5 p-6 shadow-xl">
         <h1 className="text-3xl font-semibold">Bliss Check-in</h1>
         <p className="mt-2 text-white/70">Choose where you want to go.</p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           <Link
             href="/checkin"
-            className="rounded-2xl border border-white/10 bg-black/30 p-6 hover:bg-black/40 transition"
+            className="rounded-2xl border-2 border border-white/60 bg-black/20 p-6 hover:bg-black/30 transition"
           >
             <div className="text-xl font-semibold">Customer Check-in</div>
             <div className="mt-2 text-sm text-white/70">
@@ -23,7 +23,7 @@ export default function Home() {
 
           <Link
             href="/admin"
-            className="rounded-2xl border border-white/10 bg-black/30 p-6 hover:bg-black/40 transition"
+            className="rounded-2xl border-2 border border-white/60 bg-black/20 p-6 hover:bg-black/30 transition"
           >
             <div className="text-xl font-semibold">Staff Admin</div>
             <div className="mt-2 text-sm text-white/70">

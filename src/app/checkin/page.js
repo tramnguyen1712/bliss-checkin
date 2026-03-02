@@ -58,7 +58,7 @@ export default function CheckinPage() {
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl">
+      <div className="w-full max-w-md rounded-2xl border-2 border border-white/60 bg-white/5 p-6 shadow-xl">
         {/* Header with Home button */}
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -71,7 +71,7 @@ export default function CheckinPage() {
 
           <a
             href="/"
-            className="shrink-0 rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
+            className="shrink-0 rounded-xl border-2 border border-white/60 bg-black/30 px-4 py-2 text-sm hover:bg-black/40"
           >
             Home
           </a>
@@ -85,7 +85,7 @@ export default function CheckinPage() {
             type="tel"
             inputMode="numeric"
             placeholder="(919) 555-1234"
-            className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-lg outline-none focus:border-white/40"
+            className="w-full rounded-xl bg-black/40 border-2 border border-white/60 px-4 py-3 text-lg outline-none focus:border-white/40"
           />
 
           {needsName && (
@@ -96,7 +96,7 @@ export default function CheckinPage() {
                 onChange={(e) => setName(e.target.value)}
                 type="text"
                 placeholder="First & last name"
-                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-lg outline-none focus:border-white/40"
+                className="w-full rounded-xl bg-black/40 border-2 border border-white/60 px-4 py-3 text-lg outline-none focus:border-white/40"
               />
             </>
           )}
@@ -110,7 +110,7 @@ export default function CheckinPage() {
           </button>
         </form>
 
-        <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3 text-sm text-white/80 min-h-[44px]">
+        <div className="mt-4 rounded-xl border-2 border border-white/60 bg-black/30 p-3 text-sm text-white/80 min-h-[44px]">
           {message || " "}
         </div>
       </div>

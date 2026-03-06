@@ -87,7 +87,7 @@ async function doCheckin(customer_id, currentPoints, customerName, checkin_date)
         alreadyCheckedIn: true,
         points: currentPoints,
         name: customerName,
-        message: `You already checked-in today. Your total point is ${currentPoints}.`
+        message: `✅You already checked-in today. Your total point is ${currentPoints}.`
       });
     }
 
@@ -96,6 +96,7 @@ async function doCheckin(customer_id, currentPoints, customerName, checkin_date)
 
   // If insert succeeded, add 1 point
   const newPoints = currentPoints + 1;
+  const isMilestone = newPoints % 10 === 0;
 
   const { error: updErr } = await supabase
     .from("customers")
@@ -111,6 +112,8 @@ async function doCheckin(customer_id, currentPoints, customerName, checkin_date)
     checkedIn: true,
     points: newPoints,
     name: customerName,
-    message: `✅ Checked in! Your total point is ${newPoints}.`
+    message: isMilestone
+      ? "🥳🎉CONGRATULATIONS🎊🥳, you get 10% OFF today, Please let the staff know!"
+      : `✅ Checked in! Your total point is ${newPoints}.`
   });
 }

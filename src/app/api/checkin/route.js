@@ -69,7 +69,7 @@ function isWithinBirthdayWindow(checkISO, dobMonth, dobDay) {
 
   const windowOk = (birthday) => {
     const diff = daysBetween(checkDate, birthday); // check - birthday
-    return diff >= -5 && diff <= 4;
+    return diff >= -15 && diff <= 15;
   };
 
   if (windowOk(bThis)) return { ok: true, promoYear: checkYear };

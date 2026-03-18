@@ -34,7 +34,7 @@ function isWithinBirthdayWindow(checkISO, dobMonth, dobDay) {
   const bNext = new Date(Date.UTC(checkYear + 1, dobMonth - 1, dobDay));
   const windowOk = (birthday) => {
     const diff = daysBetween(checkDate, birthday);
-    return diff >= -5 && diff <= 4;
+    return diff >= -15 && diff <= 15;
   };
   if (windowOk(bThis)) return { ok: true, promoYear: checkYear };
   if (windowOk(bNext)) return { ok: true, promoYear: checkYear + 1 };

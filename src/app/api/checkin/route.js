@@ -142,7 +142,19 @@ export async function POST(req) {
 
       if (createErr) return Response.json({ ok: false, message: createErr.message }, { status: 500 });
 
-      return await doCheckinAndPromos(created, checkin_date);
+      // New signup: record the checkin but do NOT award the +1 point
+      await supabase
+        .from("checkins")
+        .insert({ customer_id: created.id, checkin_date });
+
+      return Response.json({
+        ok: true,
+        checkedIn: true,
+        newSignup: true,
+        points: 0,
+        name: created.name,
+        message: `🎉 Welcome, ${created.name}! You're now signed up. Start earning points on your next visit!`,
+      });
     }
 
     // Existing customer missing DOB: ask on next check-in

@@ -89,7 +89,19 @@ export async function POST(req) {
     );
   }
 
-  const newPoints = Math.max(0, customer.points - 1);
+  // Birthday promotion requires at least 1 point.
+  if (customer.points < 1) {
+    return Response.json(
+      {
+        ok: false,
+        message: "Not enough points! Birthday promotion requires at least 1 point.",
+      },
+      { status: 400 }
+    );
+  }
+
+  // Deduct exactly 1 point after checking eligibility.
+  const newPoints = customer.points - 1;
 
   const { error: updErr } = await supabase
     .from("customers")

@@ -261,6 +261,38 @@ export default function AdminPage() {
     }
   }
 
+  async function removeAccount() {
+    if (!customer || loading) return;
+    const confirmed = window.confirm(
+      "Are you sure you want to remove this account from the system?\n\n" +
+      "This permanently removes an eligible new customer's account and check-in history. This cannot be undone."
+    );
+    if (!confirmed) return;
+    setLoading(true);
+    setMessage("");
+    try {
+      const res = await fetch("/api/admin-remove-customer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-pin": getAdminPin() },
+        body: JSON.stringify({ phone: customer.phone }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setMessage(data.message || "Could not remove account.");
+        return;
+      }
+      setCustomer(null);
+      setHistory([]);
+      setCustomersList([]);
+      setSearchInput("");
+      setMessage("Account removed. The customer can sign up again on their next visit.");
+    } catch {
+      setMessage("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // ── PIN screen ───────────────────────────────────────────────────────────────
   if (!authed) {
     return (
@@ -417,11 +449,15 @@ export default function AdminPage() {
                       Customer is within their birthday window. Redeem 20% OFF (uses 1 point).
                     </p>
                     <button
-                      onClick={redeemBirthday}
-                      disabled={loading}
-                      className="mt-3 w-full rounded-xl bg-yellow-400 text-black text-lg font-semibold py-3 hover:bg-yellow-300 disabled:opacity-60 transition-colors"
+                    onClick={redeemBirthday}
+                    disabled={loading || !customer || customer.points < 1}
+                    className={`mt-3 w-full rounded-xl text-lg font-semibold py-3 transition-colors ${
+                        !customer || customer.points < 1
+                        ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                        : "bg-yellow-400 text-black hover:bg-yellow-300"
+                    }`}
                     >
-                      Redeem Birthday 20% OFF
+                    Redeem Birthday 20% OFF
                     </button>
                   </div>
                 ) : customer.birthdayRedeemed ? (
@@ -440,6 +476,22 @@ export default function AdminPage() {
             >
               Redeem 10% Discount (uses 10 points)
             </button>
+
+            {/* Remove first-time account when no service was provided */}
+            <div className="border-t border-white/20 pt-4">
+              <button
+                type="button"
+                onClick={removeAccount}
+                disabled={loading || adjustLoading}
+                className="w-full rounded-xl border-2 border-red-400/70 bg-red-500/10 py-3 text-lg font-semibold text-red-200 hover:bg-red-500/20 disabled:opacity-50"
+              >
+                Remove Account
+              </button>
+              <p className="mt-2 text-sm text-white/50">
+                For first-time customers who left without service. Accounts with points,
+                redemption history, or multiple check-ins cannot be removed here.
+              </p>
+            </div>
 
             {/* Points adjustment */}
             <div className="space-y-3 pt-2 border-t border-white/20">

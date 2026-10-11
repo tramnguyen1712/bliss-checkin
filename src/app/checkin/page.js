@@ -116,7 +116,7 @@ export default function CheckinPage() {
               readOnly
               type="text"
               onFocus={(e) => e.target.blur()}
-              placeholder="(919) 555-1234"
+              placeholder="(000) 000-0000"
               className="w-full rounded-xl bg-black/40 border-2 border-white/60 px-5 py-4 text-xl outline-none"
             />
 
@@ -171,7 +171,7 @@ export default function CheckinPage() {
 
             {needsDob && (
               <>
-                <label className="block text-base text-white/80 mt-3">Birthday (MM/DD)</label>
+                <label className="block text-base text-white/80 mt-3">Birthday </label>
                 <input
                   value={dob}
                   onChange={(e) => {
@@ -185,7 +185,7 @@ export default function CheckinPage() {
                   }}
                   type="text"
                   inputMode="numeric"
-                  placeholder="03/25"
+                  placeholder="MM/DD"
                   className="w-full rounded-xl bg-black/40 border-2 border-white/60 px-5 py-4 text-xl outline-none"
                 />
                 <p className="text-sm text-white/60">Year not needed. Used only for birthday promotions.</p>

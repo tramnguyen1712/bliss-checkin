@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import DailyCheckins from "./DailyCheckins";
 
 function normalizePhone(input) {
   return (input || "").replace(/\D/g, "");
@@ -36,6 +37,8 @@ function redeemLabel(item) {
 }
 
 export default function AdminPage() {
+  const [tab, setTab] = useState("search");
+  const [historyDate, setHistoryDate] = useState("");
   const [pin, setPin] = useState("");
   const [authed, setAuthed] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
@@ -88,6 +91,7 @@ export default function AdminPage() {
     sessionStorage.removeItem("admin_pin");
     setAuthed(false);
     setPin("");
+    setTab("search");
     setSearchInput("");
     setCustomer(null);
     setHistory([]);
@@ -146,6 +150,24 @@ export default function AdminPage() {
         setCustomer(data.customer);
         setHistory(data.history || []);
       }
+    } catch {
+      setMessage("Network error.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function openFromHistory(entry) {
+    setSearchInput(entry.phone);
+    setCustomer(null);
+    setHistory([]);
+    setCustomersList([]);
+    setAdjustValue("");
+    setMessage("");
+    setTab("search");
+    setLoading(true);
+    try {
+      await fetchCustomer(entry.phone);
     } catch {
       setMessage("Network error.");
     } finally {
@@ -309,6 +331,25 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Admin sections */}
+        <div className="grid grid-cols-2 gap-3" role="tablist" aria-label="Staff admin sections">
+          <button type="button" role="tab" aria-selected={tab === "search"}
+            onClick={() => setTab("search")}
+            className={`rounded-xl border-2 px-3 py-4 font-semibold ${tab === "search" ? "border-white bg-white text-black" : "border-white/40 bg-black/30 text-white"}`}>
+            Customer Search
+          </button>
+          <button type="button" role="tab" aria-selected={tab === "history"}
+            onClick={() => setTab("history")}
+            className={`rounded-xl border-2 px-3 py-4 font-semibold ${tab === "history" ? "border-white bg-white text-black" : "border-white/40 bg-black/30 text-white"}`}>
+            Daily Check-in History
+          </button>
+        </div>
+
+        {tab === "history" && (
+          <DailyCheckins adminPin={getAdminPin()} onManage={openFromHistory} selectedDate={historyDate} onDateChange={setHistoryDate} />
+        )}
+
+        {tab === "search" && <>
         {/* Search form */}
         <form onSubmit={lookup} className="flex gap-3">
           <input
@@ -463,6 +504,8 @@ export default function AdminPage() {
             </div>
           </div>
         )}
+
+        </>}
 
         {/* Message */}
         <div className="rounded-xl border-2 border-white/60 bg-black/30 p-4 text-lg text-white/80 min-h-[56px]">

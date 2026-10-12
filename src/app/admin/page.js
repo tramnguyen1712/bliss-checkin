@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import DailyCheckins from "./DailyCheckins";
+import CustomerCheckinHistory from "./CustomerCheckinHistory";
 
 function normalizePhone(input) {
   return (input || "").replace(/\D/g, "");
@@ -555,6 +556,16 @@ export default function AdminPage() {
               ))}
             </div>
           </div>
+        )}
+
+        {/* Customer Check-in History */}
+        {customer && (
+        <div className="mt-6">
+            <CustomerCheckinHistory
+            customerId={customer.id}
+            adminPin={getAdminPin()}
+            />
+        </div>
         )}
 
         </>}
